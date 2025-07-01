@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import Navigation from "@/components/Navigation";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Footer from "@/components/Footer";

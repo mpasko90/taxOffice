@@ -5,9 +5,10 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Calculator, Users, MessageSquare, Clock, CheckCircle, ArrowLeft } from "lucide-react";
-import { Metadata } from "next";
+import { type Metadata } from "next";
 
-const services: { [key: string]: any } = {
+// Type-safe services object
+const services = {
   'prowadzenie-ksiegowosci': {
     icon: Calculator,
     title: "Prowadzenie księgowości w Miliczu",
@@ -47,12 +48,12 @@ const services: { [key: string]: any } = {
       "Powierzając nam obsługę kadrowo-płacową, masz pewność, że wszystkie formalności zostaną załatwione terminowo i rzetelnie."
     ],
     benefits: [
-      "Naliczanie wynagrodzeń",
+      "Naliczanie wynagrodzeń i składek",
       "Sporządzanie list płac",
-      "Deklaracje ZUS",
+      "Deklaracje ZUS i PIT-4R",
       "Ewidencja czasu pracy",
-      "Umowy o pracę i zlecenie",
-      "Świadectwa pracy"
+      "Umowy o pracę i zlecenia",
+      "Reprezentacja przed ZUS"
     ],
     process: [
       "Analiza struktury zatrudnienia",
@@ -95,9 +96,9 @@ const services: { [key: string]: any } = {
     description: "Profesjonalne przygotowanie zeznań podatkowych",
     price: "Od 100 zł",
     fullDescription: [
-      "Sporządzanie rocznych zeznań podatkowych może być wyzwaniem, zwłaszcza w przypadku skomplikowanej sytuacji finansowej.",
-      "Nasze biuro rachunkowe w Miliczu oferuje kompleksowe wsparcie w przygotowaniu i składaniu deklaracji rocznych PIT.",
-      "Zadbamy o prawidłowe rozliczenie wszystkich przychodów, kosztów oraz ulg podatkowych, abyś mógł spać spokojnie.",
+      "Rozliczenie roczne PIT to obowiązek każdego podatnika, który może generować spory stres i niepewność.",
+      "Nasze biuro rachunkowe w Miliczu oferuje profesjonalne wsparcie w zakresie przygotowania i złożenia deklaracji PIT-36, PIT-37 oraz innych zeznań podatkowych.",
+      "Zapewniamy prawidłowe rozliczenie wszystkich przychodów, kosztów uzyskania przychodu oraz przysługujących ulg podatkowych.",
       "Dzięki naszej pomocy unikniesz stresu związanego z rozliczeniami oraz ryzyka błędów, które mogą prowadzić do nieprzyjemnych konsekwencji."
     ],
     benefits: [
@@ -116,32 +117,35 @@ const services: { [key: string]: any } = {
       "Złożenie w odpowiednim terminie"
     ]
   }
-};
+} as const;
 
-interface ServicePageParams {
-  params: {
-    serviceSlug: string;
-  };
+type ServiceSlug = keyof typeof services;
+
+interface PageProps {
+  params: Promise<{ serviceSlug: string }>;
 }
 
-export async function generateMetadata({ params }: ServicePageParams): Promise<Metadata> {
-  const service = services[params.serviceSlug];
+export async function generateMetadata(
+  { params }: PageProps
+): Promise<Metadata> {
+  const { serviceSlug } = await params;
+  const service = services[serviceSlug as ServiceSlug];
+  
   if (!service) {
     return {
-      title: 'Usługa nie znaleziona - Biuro Rachunkowe w Miliczu',
-      description: 'Przepraszamy, ale nie znaleziono takiej usługi.'
+      title: 'Usługa nie znaleziona | Tax Office Marta Mróz Milicz'
     };
   }
 
   return {
-    title: `${service.title} - Biuro Rachunkowe w Miliczu`,
+    title: `${service.title} | Tax Office Marta Mróz Milicz`,
     description: service.description,
   };
 }
 
-export default function ServiceDetailPage({ params }: ServicePageParams) {
-  const { serviceSlug } = params;
-  const service = services[serviceSlug];
+export default async function ServiceDetailPage({ params }: PageProps) {
+  const { serviceSlug } = await params;
+  const service = services[serviceSlug as ServiceSlug];
 
   if (!service) {
     return (
@@ -150,7 +154,7 @@ export default function ServiceDetailPage({ params }: ServicePageParams) {
         <div className="container mx-auto px-4 py-8">
           <h1 className="text-3xl font-bold mb-4">Usługa nie znaleziona</h1>
           <p>Przepraszamy, ale nie znaleziono takiej usługi.</p>
-          <Link href="/services">
+          <Link href="/uslugi">
             <Button className="mt-4">
               <ArrowLeft className="mr-2 h-4 w-4" />
               Wróć do listy usług
@@ -171,36 +175,44 @@ export default function ServiceDetailPage({ params }: ServicePageParams) {
         <Breadcrumbs />
         <div className="mb-8">
           <div className="flex items-center mb-4">
-            <ServiceIcon className="h-8 w-8 mr-4" />
+            <ServiceIcon className="h-8 w-8 mr-3 text-primary" />
             <h1 className="text-3xl font-bold">{service.title}</h1>
           </div>
-          <p className="text-xl text-gray-600 mb-2">{service.description}</p>
-          <p className="text-xl font-semibold text-primary">{service.price}</p>
+          <p className="text-xl text-gray-600 mb-4">{service.description}</p>
+          <div className="text-2xl font-bold text-primary">{service.price}</div>
         </div>
 
-        <div className="grid gap-8 md:grid-cols-2 mb-8">
-          <Card>
-            <CardContent className="p-6">
-              <h2 className="text-2xl font-semibold mb-4">Szczegóły usługi</h2>
-              {service.fullDescription.map((desc: string, index: number) => (
-                <p key={index} className="mb-3 text-gray-600">{desc}</p>
-              ))}
-            </CardContent>
-          </Card>
+        <div className="grid lg:grid-cols-3 gap-8 mb-8">
+          <div className="lg:col-span-2">
+            <Card className="mb-6">
+              <CardContent className="p-6">
+                <h2 className="text-2xl font-semibold mb-4">Opis usługi</h2>
+                <div className="space-y-4">
+                  {service.fullDescription.map((paragraph: string, index: number) => (
+                    <p key={index} className="text-gray-700 leading-relaxed">
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
 
-          <Card>
-            <CardContent className="p-6">
-              <h2 className="text-2xl font-semibold mb-4">Korzyści</h2>
-              <ul className="space-y-3">
-                {service.benefits.map((benefit: string, index: number) => (
-                  <li key={index} className="flex items-start">
-                    <CheckCircle className="h-5 w-5 mr-2 text-green-500 flex-shrink-0 mt-0.5" />
-                    <span>{benefit}</span>
-                  </li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
+          <div>
+            <Card className="mb-6">
+              <CardContent className="p-6">
+                <h2 className="text-2xl font-semibold mb-4">Korzyści</h2>
+                <ul className="space-y-3">
+                  {service.benefits.map((benefit: string, index: number) => (
+                    <li key={index} className="flex items-start">
+                      <CheckCircle className="h-5 w-5 mr-2 text-green-500 flex-shrink-0 mt-0.5" />
+                      <span>{benefit}</span>
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+          </div>
         </div>
 
         <Card className="mb-8">
@@ -216,7 +228,7 @@ export default function ServiceDetailPage({ params }: ServicePageParams) {
           </CardContent>
         </Card>
 
-        <Link href="/services">
+        <Link href="/uslugi">
           <Button>
             <ArrowLeft className="mr-2 h-4 w-4" />
             Wróć do listy usług

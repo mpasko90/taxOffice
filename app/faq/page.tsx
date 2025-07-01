@@ -1,12 +1,10 @@
 "use client";
 
-import React from "react";
 import Navigation from "@/components/Navigation";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import Head from "next/head";
 import { ArrowRight, Phone, Mail, MessageCircle } from "lucide-react";
 import {
   Accordion,
@@ -98,21 +96,7 @@ const FAQPage = () => {
   ];
 
   return (
-    <>
-      <Head>
-        <title>FAQ - Najczęściej zadawane pytania | Tax Office Marta Mróz Milicz</title>
-        <meta 
-          name="description" 
-          content="Odpowiedzi na najczęściej zadawane pytania dotyczące usług księgowych w Miliczu. Koszty, współpraca, dokumenty, terminy - wszystko co musisz wiedzieć o biurze rachunkowym." 
-        />
-        <meta name="keywords" content="FAQ księgowość Milicz, pytania biuro rachunkowe, koszty księgowości, współpraca zdalna, Tax Office" />
-        <link rel="canonical" href="https://taxoffice.biz/faq" />
-        <meta property="og:title" content="FAQ - Pytania o usługi księgowe Milicz" />
-        <meta property="og:description" content="Znajdź odpowiedzi na pytania o księgowość, koszty, współpracę i procedury w biurze rachunkowym Tax Office Marta Mróz." />
-        <meta property="og:url" content="https://taxoffice.biz/faq" />
-      </Head>
-
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
         <Navigation />
         <div className="pt-20">
           <Breadcrumbs />
@@ -216,7 +200,6 @@ const FAQPage = () => {
         </div>
         <Footer />
       </div>
-    </>
   );
 };
 
