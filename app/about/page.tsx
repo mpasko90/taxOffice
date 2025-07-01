@@ -22,14 +22,14 @@ const AboutPage = () => {
       altText: "Marta Mróz księgowa Milicz"
     },
     {
-      name: "Marlena",
+      name: "Marlena Cymbała",
       role: "Księgowa",
       education: "Magister finansów i rachunkowości - Uniwersytet WSB Merito Wrocław",
       experience: "Doświadczenie w księgowości od 2018 roku, tytuł magistra w 2022 roku",
       description: "Specjalizuje się w kompleksowej obsłudze księgowej firm, rozliczeniach kadrowo-płacowych oraz analizie przepisów prawa podatkowego i gospodarczego. Szczególną wagę przywiązuje do profesjonalizmu i rzetelności.",
       personalInfo: "Prywatnie — szczęśliwa żona, ceniąca równowagę między życiem zawodowym a prywatnym, co przekłada się na wysokie zaangażowanie i konsekwentny rozwój zawodowy.",
       photo: "/photos/IMG-20230921-WA0002.jpg",
-      altText: "Marlena księgowa biuro rachunkowe Milicz"
+      altText: "Marlena Cymbała księgowa biuro rachunkowe Milicz"
     }
   ];
 
