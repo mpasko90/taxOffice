@@ -8,7 +8,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Calculator, Users, MessageSquare, Clock, CheckCircle, ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { Helmet } from "react-helmet-async";
 
 const ServicesPage = () => {
   const services = [
@@ -52,20 +51,6 @@ const ServicesPage = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Usługi księgowe Milicz - Tax Office Marta Mróz | Księgowość, Kadry, PIT</title>
-        <meta 
-          name="description" 
-          content="Kompleksowe usługi księgowe w Miliczu: prowadzenie księgowości, kadry i płace, konsultacje księgowe, rozliczenia PIT. Biuro rachunkowe z doświadczeniem od 2018 roku." 
-        />
-        <meta name="keywords" content="księgowość Milicz, biuro rachunkowe Milicz, kadry płace, rozliczenia PIT, konsultacje księgowe, Tax Office Marta Mróz" />
-        <link rel="canonical" href="https://taxoffice.biz/uslugi" />
-        <meta property="og:title" content="Usługi księgowe Milicz - Tax Office Marta Mróz" />
-        <meta property="og:description" content="Kompleksowe usługi księgowe w Miliczu: księgowość, kadry i płace, konsultacje, rozliczenia PIT. Profesjonalne biuro rachunkowe." />
-        <meta property="og:url" content="https://taxoffice.biz/uslugi" />
-        <meta property="og:type" content="website" />
-      </Helmet>
-
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
         <Navigation />
         <div className="pt-20">
