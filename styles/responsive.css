@@ -1,0 +1,47 @@
+/* 📱 Responsive adjustments */
+@media (max-width: 768px) {
+  .floating-orbs::before,
+  .floating-orbs::after {
+    width: 200px;
+    height: 200px;
+  }
+  
+  .geometric-shapes::before,
+  .geometric-shapes-slow::before {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .geometric-shapes::after,
+  .geometric-shapes-slow::after {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+/* ⚡ Performance optimizations */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .floating-orbs::before,
+  .floating-orbs::after,
+  .geometric-shapes::before,
+  .geometric-shapes::after,
+  .geometric-shapes-slow::before,
+  .geometric-shapes-slow::after {
+    animation: none;
+  }
+}
+
+/* GPU acceleration for better performance */
+.glass-card-hero,
+.button-glow,
+.button-ghost {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+} 

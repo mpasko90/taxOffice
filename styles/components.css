@@ -1,0 +1,81 @@
+/* ✨ Glass Morphism Cards (2025 Style) */
+.glass-card-hero {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card-hero:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* 🎨 Text Effects */
+.hero-text-glow {
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+.hero-highlight {
+  background: linear-gradient(90deg, #ffffff, #e0e1dd, #ffffff);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* 🔥 Button Effects */
+.button-glow {
+  box-shadow: 0 4px 15px rgba(224, 225, 221, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.button-glow:hover {
+  box-shadow: 0 8px 25px rgba(224, 225, 221, 0.5);
+  transform: translateY(-2px);
+}
+
+.button-ghost {
+  position: relative;
+  overflow: hidden;
+}
+
+.button-ghost::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
+}
+
+.button-ghost:hover::before {
+  left: 100%;
+}
+
+/* 🎪 Hero Background */
+.hero-gradient {
+  background: linear-gradient(135deg, 
+    hsl(var(--primary)) 0%,
+    hsl(var(--secondary)) 35%,
+    hsl(var(--accent)) 70%,
+    hsl(var(--primary)) 100%
+  );
+  background-size: 400% 400%;
+  animation: gradient-flow 15s ease infinite;
+}
+
+.hero-gradient-slow {
+  background: linear-gradient(135deg, 
+    hsl(var(--primary)) 0%,
+    hsl(var(--secondary)) 35%,
+    hsl(var(--accent)) 70%,
+    hsl(var(--primary)) 100%
+  );  
+  background-size: 400% 400%;
+  animation: gradient-flow-slow 25s ease infinite;
+} 
